@@ -1,7 +1,4 @@
 FROM alpine:3.12
-
-LABEL Name=docker.io/maurelio/moodle-with-plugins Version=0.0.1 maintainer=marco.aurelio@gigacandanga.net.br
-
 EXPOSE 80
 ARG VERSION=3.10.0
 ARG MOOSH_VERSION=0.32
@@ -80,5 +77,7 @@ RUN chmod 777 /tmp && chmod +t /tmp ;\
     sed  -i '/client_max_body_size/s/^.*$/\tclient_max_body_size '${UPLOADSIZE}';/' /etc/nginx/nginx.conf
 
 COPY default.conf /etc/nginx/conf.d/
+COPY start.sh /opt/
 
-CMD ["nginx"]
+LABEL Version=0.0.1 maintainer=marco.aurelio@gigacandanga.net.br
+CMD ["/opt/start.sh"]
